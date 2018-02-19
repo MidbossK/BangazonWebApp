@@ -15,6 +15,6 @@ namespace BangazonWebApp.Models
         [Display(Name = "Product Category")]
         public string Category { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public virtual ICollection<Product> Product { get; set; }
     }
 }

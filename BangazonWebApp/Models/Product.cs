@@ -12,7 +12,11 @@ namespace BangazonWebApp.Models
         public int ProductId { get; set; }
 
         [Required]
-        public int Description;
+        [Display(Name = "Product Name")]
+        public string Name;
+
+        [Required]
+        public string Description;
 
         [Required]
         [Display(Name = "Quantity Available")]
