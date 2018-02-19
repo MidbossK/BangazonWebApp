@@ -15,11 +15,11 @@ namespace BangazonWebApp.Models
         public int Description;
 
         [Required]
-        [Display(Name = "Available")]
+        [Display(Name = "Quantity Available")]
         public int Quantity { get; set; }
 
         [Required]
-        [Display(Name = "Created on")]
+        [Display(Name = "Date created ")]
         [DataType(DataType.Date)]
         public DateTime DateCreated { get; set; }
 
