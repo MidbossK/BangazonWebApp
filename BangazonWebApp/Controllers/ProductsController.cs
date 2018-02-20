@@ -49,7 +49,7 @@ namespace BangazonWebApp.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["ProductTypeId"] = new SelectList(_context.Set<ProductType>(), "ProductTypeId", "Category");
+            ViewData["ProductTypeId"] = new SelectList(_context.Set<Models.ProductType>(), "ProductTypeId", "Category");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace BangazonWebApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.Set<ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
+            ViewData["ProductTypeId"] = new SelectList(_context.Set<Models.ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
             return View(product);
         }
 
@@ -84,7 +84,7 @@ namespace BangazonWebApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.Set<ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
+            ViewData["ProductTypeId"] = new SelectList(_context.Set<Models.ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
             return View(product);
         }
 
@@ -121,7 +121,7 @@ namespace BangazonWebApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductTypeId"] = new SelectList(_context.Set<ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
+            ViewData["ProductTypeId"] = new SelectList(_context.Set<Models.ProductType>(), "ProductTypeId", "Category", product.ProductTypeId);
             return View(product);
         }
 
