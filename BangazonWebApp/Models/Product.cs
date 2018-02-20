@@ -31,6 +31,10 @@ namespace BangazonWebApp.Models
         [Display(Name = "Product Category")]
         public int ProductTypeId { get; set; }
 
+        [Required]
+        [Display(Name = "Price")]
+        public string Price;
+
         public ProductType ProductType { get; set; }
     }
 }

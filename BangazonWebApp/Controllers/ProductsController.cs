@@ -23,7 +23,7 @@ namespace BangazonWebApp.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Product.Include(p => p.ProductType);
+            var applicationDbContext = _context.Products.Include(p => p.ProductType);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace BangazonWebApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .Include(p => p.ProductType)
                 .SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
@@ -79,7 +79,7 @@ namespace BangazonWebApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product.SingleOrDefaultAsync(m => m.ProductId == id);
+            var product = await _context.Products.SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
             {
                 return NotFound();
@@ -133,7 +133,7 @@ namespace BangazonWebApp.Controllers
                 return NotFound();
             }
 
-            var product = await _context.Product
+            var product = await _context.Products
                 .Include(p => p.ProductType)
                 .SingleOrDefaultAsync(m => m.ProductId == id);
             if (product == null)
@@ -149,15 +149,15 @@ namespace BangazonWebApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var product = await _context.Product.SingleOrDefaultAsync(m => m.ProductId == id);
-            _context.Product.Remove(product);
+            var product = await _context.Products.SingleOrDefaultAsync(m => m.ProductId == id);
+            _context.Products.Remove(product);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProductExists(int id)
         {
-            return _context.Product.Any(e => e.ProductId == id);
+            return _context.Products.Any(e => e.ProductId == id);
         }
     }
 }

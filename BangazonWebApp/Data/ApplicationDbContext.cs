@@ -23,6 +23,8 @@ namespace BangazonWebApp.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
 
-        public DbSet<BangazonWebApp.Models.Product> Product { get; set; }
+        public DbSet<BangazonWebApp.Models.Product> Products { get; set; }
+        public DbSet<BangazonWebApp.Models.ProductType> ProductTypes { get; set; }
+
     }
 }

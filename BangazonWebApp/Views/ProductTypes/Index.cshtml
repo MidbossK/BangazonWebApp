@@ -1,16 +1,26 @@
-﻿@{
-    ViewData["Title"] = "Product Type Listing";
+﻿@model Bangazon.Models.ProductViewModels.ProductTypeViewModel
+@{
+    ViewData["Title"] = "Product Types";
 }
-
-<h2>@ViewData["Title"]</h2>
-
-@foreach (var category in (IEnumerable<object>)category["category"])
+<h2 class="top-buffer">Product Types</h2>
+@foreach (var type in Model.GroupedProducts)
 {
-    @category
-    <div class="row top-buffer">
-        <div>@category.Name</div>
-        <div>@category.Quantity</div>
-        <div>
+    <div class="row">
+        <div class="col-md-12">
+            <a asp-controller="ProductTypes" asp-action="Detail" asp-route-type="@type.TypeId">
+                <h4>@type.TypeName (@Html.DisplayFor(modelItem => type.ProductCount))</h4>
+            </a>
         </div>
     </div>
+    foreach (var product in type.Products)
+    {
+        <div class="row">
+            <div class="col-md-10">
+                @product.Name
+            </div>
+            <div class="col-md-2">
+                @product.Price.ToString()
+            </div>
+        </div>
+    }
 }
