@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BangazonWebApp.Data;
 using BangazonWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace BangazonWebApp.Controllers
 {
@@ -15,11 +16,20 @@ namespace BangazonWebApp.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-        public ProductsController(ApplicationDbContext context)
+        public ProductsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
+            _userManager = userManager;
             _context = context;
         }
+        private readonly UserManager<ApplicationUser> _userManager;
 
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        //public async Task<IActionResult> Types()
+        //{
+        //    var model = new ProductTypesViewModel();
+        //    return View(model);
+        //}
         // GET: Products
         public async Task<IActionResult> Index()
         {
@@ -59,10 +69,14 @@ namespace BangazonWebApp.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Quantity,DateCreated,ProductTypeId")] Product product)
+        public async Task<IActionResult> Create(Product product)
         {
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
+                var user = await GetCurrentUserAsync();
+                product.User = user;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +108,7 @@ namespace BangazonWebApp.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Quantity,DateCreated,ProductTypeId")] Product product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Quantity,DateCreated,ProductTypeId,Name,Description")] Product product)
         {
             if (id != product.ProductId)
             {

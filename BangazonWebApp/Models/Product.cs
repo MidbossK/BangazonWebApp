@@ -12,11 +12,14 @@ namespace BangazonWebApp.Models
         public int ProductId { get; set; }
 
         [Required]
-        [Display(Name = "Product Name")]
-        public string Name;
+        public ApplicationUser User { get; set; }
 
         [Required]
-        public string Description;
+        [Display(Name = "Product Name")]
+        public string Name { get; set; }
+
+        [Required]
+        public string Description { get; set; }
 
         [Required]
         [Display(Name = "Quantity Available")]
@@ -33,7 +36,7 @@ namespace BangazonWebApp.Models
 
         [Required]
         [Display(Name = "Price")]
-        public string Price;
+        public double Price { get; set; }
 
         public ProductType ProductType { get; set; }
     }

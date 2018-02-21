@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace BangazonWebApp.Data.Migrations
+namespace BangazonWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180216204648_InitialCreate")]
-    partial class InitialCreate
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -95,21 +94,30 @@ namespace BangazonWebApp.Data.Migrations
                     b.Property<int>("ProductId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ApplicationUserId");
-
                     b.Property<DateTime>("DateCreated");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<double>("Price");
 
                     b.Property<int>("ProductTypeId");
 
                     b.Property<int>("Quantity");
 
-                    b.HasKey("ProductId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
-                    b.HasIndex("ApplicationUserId");
+                    b.HasKey("ProductId");
 
                     b.HasIndex("ProductTypeId");
 
-                    b.ToTable("Product");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("BangazonWebApp.Models.ProductType", b =>
@@ -122,7 +130,7 @@ namespace BangazonWebApp.Data.Migrations
 
                     b.HasKey("ProductTypeId");
 
-                    b.ToTable("ProductType");
+                    b.ToTable("ProductTypes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -235,13 +243,14 @@ namespace BangazonWebApp.Data.Migrations
 
             modelBuilder.Entity("BangazonWebApp.Models.Product", b =>
                 {
-                    b.HasOne("BangazonWebApp.Models.ApplicationUser")
-                        .WithMany("Products")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("BangazonWebApp.Models.ProductType", "ProductType")
-                        .WithMany("Products")
+                        .WithMany("Product")
                         .HasForeignKey("ProductTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BangazonWebApp.Models.ApplicationUser", "User")
+                        .WithMany("Products")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
