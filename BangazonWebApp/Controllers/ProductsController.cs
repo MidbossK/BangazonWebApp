@@ -9,6 +9,8 @@ using BangazonWebApp.Data;
 using BangazonWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Bangazon.Models;
+using Bangazon.Models.ProductTypeViewModel;
 
 namespace BangazonWebApp.Controllers
 {
@@ -36,6 +38,7 @@ namespace BangazonWebApp.Controllers
             var applicationDbContext = _context.Products.Include(p => p.ProductType);
             return View(await applicationDbContext.ToListAsync());
         }
+
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)

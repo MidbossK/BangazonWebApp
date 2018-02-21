@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bangazon.Models;
 
-namespace Bangazon.Models.ProductViewModels
+
+namespace Bangazon.Models.ProductTypeViewModel
+
 {
     public class ProductTypeViewModel
     {
