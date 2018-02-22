@@ -10,7 +10,6 @@ using BangazonWebApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Bangazon.Models;
-using Bangazon.Models.ProductTypeViewModel;
 
 namespace BangazonWebApp.Controllers
 {
